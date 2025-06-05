@@ -7,13 +7,14 @@ paginate:            5
 markdown:            kramdown
 highlighter:         rouge
 permalink:           /:title
-plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-tag]
+plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-tag, jekyll-remote-theme]
+remote_theme:        lenpaul/millennial
 
 # Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
 title: "Massadona"
 description: "A minimalist site powered by Millennial theme"
-#url: "https://www.massadona.co"
-#baseurl: ""        # leave blank if you serve from root
+url: "https://www.massadona.co"
+baseurl: ""        # leave blank if you serve from root
 author: "Parker A. Hopkins (mtntheman)"
 
 # RSS 2.0 can be used instead of Atom by uncommenting following two lines
