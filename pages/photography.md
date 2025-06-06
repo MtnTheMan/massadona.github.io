@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Photography"
-permalink: /photography/
+title: Photography
+permalink: /photography
 ---
 
 ## Photography Portfolio

@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Poetry / Creative Writing"
-permalink: /poetry/
+title: Poetry / Creative Writing
+permalink: /poetry
 ---
 
 ## Poetry / Creative Writing

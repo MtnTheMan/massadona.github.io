@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Other Art / Creative Projects"
-permalink: /other-projects/
+title: Other Art / Creative Projects
+permalink: /other-projects
 ---
 
 ## Other Art / Creative Projects
