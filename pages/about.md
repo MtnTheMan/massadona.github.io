@@ -4,4 +4,10 @@ title: About
 permalink: /about
 ---
 
-Millennial is a minimalist Jekyll theme. The purpose of this theme is to provide a simple, clean, content-focused publishing platform for your publication site or blog. You can find everything you need to get started under documentation. For more information on how to install and use this theme, check out [the documentation]({{ site.github.url }}{% post_url 2016-10-10-getting-started %}).
+I am driven by a vision of natural resource stewardship that bridges rigorous science with community-centered practice. My ambition is to foster resilient landscapes by integrating high-resolution spatial analysis, stakeholder engagement, and policy insight into forest and agroforestry management.
+
+For a complete biography, detailed project descriptions, and all contact information (email, social media, and other links), please visit my main site at [mtntheman.com](https://mtntheman.com).
+
+<strong>LinkedIn:</strong> [linkedin.com/in/parkerhopkins](https://www.linkedin.com/in/parkerhopkins) :contentReference[oaicite:8]{index=8}
+
+Thank you for stopping by. I look forward to connecting and sharing more about my work.
