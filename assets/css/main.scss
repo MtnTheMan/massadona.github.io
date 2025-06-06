@@ -26,34 +26,5 @@ $medium-color: #00AB6C;
 $codepen-color: black;
 $rss-color: #ff6600;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Override all text to use the brand color (#0f1209)
-// ─────────────────────────────────────────────────────────────────────────────
-
-// Make the base body color use $brand-color
-body {
-  color: $brand-color !important;
-}
-
-// Ensure headings inherit that color (if the theme gave them custom colors)
-h1, h2, h3, h4, h5, h6 {
-  color: $brand-color !important;
-}
-
-// Override default link colors so they’re not another shade
-a, a:visited {
-  color: $brand-color !important;
-}
-a:hover,
-a:focus {
-  color: $brand-color !important;
-  text-decoration: underline;
-}
-
-// If there are any “.post-content” or other containers that apply separate colors,
-// force them back to $brand-color (you can add more selectors here as needed):
-p, li, span, div, blockquote {
-  color: $brand-color !important;
-}
 
 @import "-sections-dir";
