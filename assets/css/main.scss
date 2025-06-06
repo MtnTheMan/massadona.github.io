@@ -26,5 +26,28 @@ $medium-color: #00AB6C;
 $codepen-color: black;
 $rss-color: #ff6600;
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Target the top-level nav links and force them to #0f1209
+// (Millennial’s default menu wrapper is <nav class="site-navigation">)
+// ─────────────────────────────────────────────────────────────────────────────
+
+nav.site-navigation a,
+nav.site-navigation a:visited {
+  color: #0f1209 !important;
+}
+
+nav.site-navigation a:hover,
+nav.site-navigation a:focus {
+  color: #0f1209 !important;
+  text-decoration: underline; // optional: keeps a hover underline in your brand color
+}
+
+// Keep the “current page” link the same color (in case Millennial applies a different
+// highlight automatically)
+nav.site-navigation .current-menu-item > a,
+nav.site-navigation .current_page_item > a {
+  color: #0f1209 !important;
+}
+
 
 @import "-sections-dir";
