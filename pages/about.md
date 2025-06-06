@@ -8,6 +8,6 @@ I am driven by a vision of natural resource stewardship that bridges rigorous sc
 
 For a complete biography, detailed project descriptions, and all contact information (email, social media, and other links), please visit my main site at [mtntheman.com](https://mtntheman.com).
 
-<strong>LinkedIn:</strong> [linkedin.com/in/parkerhopkins](https://www.linkedin.com/in/parkerhopkins) :contentReference[oaicite:8]{index=8}
+<strong>LinkedIn:</strong> [linkedin.com/in/parkerhopkins](https://www.linkedin.com/in/parkerhopkins)
 
 Thank you for stopping by. I look forward to connecting and sharing more about my work.
