@@ -21,7 +21,7 @@ menu:
 # Available social icons are powered by Font Awesome, so you can use any icon that they offer
 social:
 - {icon: 'x', link:    'https://x.com/mtntheman'}
-- {icon: 'facebook', link:   'https://www.facebook.com/paululele'}
+- {icon: 'fas fa-home', link:   '/'}
 - {icon: 'instagram', link:  'https://instagram.com/mtntheman'}
 - {icon: 'envelope', link:   'mailto:parker.a.hopkins@gmail.com'}
 - {icon: 'rss-square', link: 'feed.xml'}
