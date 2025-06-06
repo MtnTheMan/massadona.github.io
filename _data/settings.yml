@@ -12,15 +12,11 @@ google-ID: 'UA-112060364-2'
 menu:
   # Remove any old entries you no longer need.
   # Add just the four new category pages:
-  - {name: 'Photography'
-    url: 'photography'}
-  - {name: 'Poetry/Creative Writing'
-    url: 'poetry'}
-  - {name: 'Videos'
-    url: 'videos'}
-  - {name: 'Other Art/Creative Projects'
-    url: 'other-projects'}
-  - {name: 'About/Contact',              url: 'about'}
+  - {name: 'Photography',                   url: 'photography'}
+  - {name: 'Poetry/Creative Writing',       url: 'poetry'}
+  - {name: 'Videos',                        url: 'videos'}
+  - {name: 'Other Art/Creative Projects',   url: 'other-projects'}
+  - {name: 'About/Contact',                 url: 'about'}
 
 # Available social icons are powered by Font Awesome, so you can use any icon that they offer
 social:
