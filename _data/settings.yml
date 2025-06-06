@@ -6,13 +6,21 @@ disqus:
 # If you are not using Google Analytics, please change 'google-ID' to an empty string
 google-ID: 'UA-112060364-2'
 
+# -------------------------------------------------------
+# Top Navigation Menu
+# -------------------------------------------------------
 menu:
-- {name: 'Interesting Facts',  url: 'facts'}
-- {name: 'Learning Resources', url: 'resources'}
-- {name: 'Sample Posts',       url: 'sample-posts'}
-- {name: 'Documentation',      url: 'documentation'}
-- {name: 'About',              url: 'about'}
-- {name: 'Contact',            url: 'contact'}
+  # Remove any old entries you no longer need.
+  # Add just the four new category pages:
+  - title: "Photography"
+    url: "/photography/"
+  - title: "Poetry / Creative Writing"
+    url: "/poetry/"
+  - title: "Videos"
+    url: "/videos/"
+  - title: "Other Art/Creative Projects"
+    url: "/other-projects/"
+  - {name: 'About/Contact',              url: 'www.mtntheman.com'}
 
 # Available social icons are powered by Font Awesome, so you can use any icon that they offer
 social:
