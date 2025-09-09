@@ -15,7 +15,7 @@ tags: [photo-essay, detroit, gallery]
   {% endif %}
 
   <article>
-    <p class="lead">Detroit in light, texture, and edge — a short photo essay drawn from images inside the site's asset folder. Click any thumbnail to view the full-size photo and navigate the series.</p>
+    <p class="lead">Detroit in light, texture, and edge — a short photo essay drawn from images taken Winter 2024-Summer 2025. Click any thumbnail to view the full-size photo and navigate the series.</p>
 
     <!-- Gallery grid (automatically reads images from assets/DetroitGallery) -->
     <div id="detroit-photo-essay">
