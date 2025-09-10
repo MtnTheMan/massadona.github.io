@@ -5,6 +5,7 @@ author: "Parker A. Hopkins"
 date: 2025-09-09
 categories: [photography, detroit]
 tags: [photo-essay, detroit, gallery]
+image: DetroitGallery/IMG_4213.jpg
 ---
 
 <div class="post-content">
@@ -14,159 +15,160 @@ tags: [photo-essay, detroit, gallery]
     {% include post-date.html %}
   {% endif %}
 
-  <article>
-    <p class="lead">Detroit in light, texture, and edge — a short photo essay drawn from images taken Winter 2024-Summer 2025. Click any thumbnail to view the full-size photo and navigate the series.</p>
+  <!-- Featured / landing image: uses the DetroitGallery image you requested -->
+  <div class="featured-image">
+    <img id="landing-image" src="/assets/DetroitGallery/IMG_4213.jpg" alt="Detroit landing photo" loading="eager">
+  </div>
 
-    <!-- Gallery grid (automatically reads images from assets/DetroitGallery) -->
-    <div id="detroit-photo-essay">
-      {% assign gallery = site.static_files | where_exp: "f", "f.path contains 'assets/DetroitGallery'" %}
-      {% assign images = gallery | sort: "modified_time" | reverse %}
-      <div class="gallery-grid">
-        {% for image in images %}
-          {% assign ext = image.extname | downcase %}
+  <article>
+    <p class="lead">Detroit in light, texture, and edge: a photo essay. The page intentionally loads a single landing image at first to keep the page light. Use the navigation controls to step through the series or load thumbnails on demand.</p>
+
+    <!-- Main viewer: only this <img> is present at initial load -->
+    <div id="viewer" aria-live="polite">
+      <button id="prevBtn" class="nav-btn" aria-label="Previous photo">‹</button>
+      <img id="mainImage" src="" alt="" style="max-width:100%; max-height:70vh; display:block; margin:0 auto;">
+      <button id="nextBtn" class="nav-btn" aria-label="Next photo">›</button>
+      <div id="caption" style="text-align:center; margin-top:8px; font-size:0.95rem;"></div>
+    </div>
+
+    <!-- Optional: load thumbnails only when user asks -->
+    <div style="text-align:center; margin:14px 0;">
+      <button id="loadThumbsBtn">Load gallery thumbnails</button>
+    </div>
+
+    <!-- Thumbnail container will be populated only when user requests it -->
+    <div id="thumbContainer" class="thumbnail-grid" aria-hidden="true"></div>
+
+    <!-- Liquid: gather image paths into `images_for_js` -->
+    {% assign _gallery = site.static_files | where_exp: "f", "f.path contains 'assets/DetroitGallery'" %}
+    {% assign images_for_js = _gallery | sort: "modified_time" | reverse %}
+    <script>
+      // Build a JS array of image paths from Liquid output: these are strings only,
+      // they do not load the images until assigned to an <img>. This keeps the initial
+      // page load light even with hundreds of items.
+      var images = [
+        {% for f in images_for_js %}
+          {% assign ext = f.extname | downcase %}
           {% if ext == ".jpg" or ext == ".jpeg" or ext == ".png" or ext == ".webp" %}
-            <a href="{{ image.path }}" class="gallery-item" data-caption="{{ image.name | replace: '-', ' ' | replace: '_', ' ' }}">
-              <img src="{{ image.path }}" alt="{{ image.name }}" loading="lazy">
-            </a>
+            "{{ f.path }}"{% if forloop.last == false %},{% endif %}
           {% endif %}
         {% endfor %}
-        {% if images == empty %}
-          <p><em>No images found in <code>assets/DetroitGallery</code>. Add images there and push to GitHub; they will appear automatically.</em></p>
-        {% endif %}
-      </div>
-    </div>
+      ];
 
-    <!-- Lightbox modal -->
-    <div id="lb" aria-hidden="true" class="lightbox">
-      <button id="lb-close" class="lb-btn lb-close" aria-label="Close">×</button>
-      <button id="lb-prev"  class="lb-btn lb-prev"  aria-label="Previous">‹</button>
-      <img id="lb-image" src="" alt="">
-      <div id="lb-caption" class="lb-caption"></div>
-      <button id="lb-next"  class="lb-btn lb-next"  aria-label="Next">›</button>
-    </div>
+      // If there are no images in the folder, guard and show a message.
+      if (!images || images.length === 0) {
+        document.addEventListener('DOMContentLoaded', function(){
+          var cont = document.getElementById('viewer');
+          cont.innerHTML = '<p><em>No images found in <code>assets/DetroitGallery</code>. Add images and push to GitHub Pages.</em></p>';
+        });
+      } else {
+        // Initialize viewer with the first image: only this <img> will fetch a resource
+        var current = 0;
+        var mainImage = null;
+        var caption = null;
 
-    <style>
-      /* Inline gallery styles (you can move these to your site CSS) */
-      .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 12px;
-        margin: 1.25rem 0;
-      }
-      .gallery-item img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 6px;
-        box-shadow: 0 6px 14px rgba(0,0,0,0.12);
-        display: block;
-      }
-      .lead { margin-bottom: 1rem; font-size: 1.05rem; line-height: 1.4; }
-
-      /* Lightbox */
-      .lightbox {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.88);
-        z-index: 9999;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        gap: 8px;
-        flex-direction: column;
-      }
-      .lightbox img {
-        max-width: 95%;
-        max-height: 80vh;
-        border-radius: 4px;
-      }
-      .lb-caption {
-        color: #fff;
-        font-size: 0.95rem;
-        margin-top: 8px;
-        text-align: center;
-        max-width: 90%;
-        overflow-wrap: anywhere;
-      }
-      .lb-btn {
-        position: absolute;
-        background: transparent;
-        color: #fff;
-        border: none;
-        font-size: 2.2rem;
-        cursor: pointer;
-        padding: 6px 10px;
-        user-select: none;
-      }
-      .lb-close { top: 10px; right: 14px; }
-      .lb-prev  { left: 8px; top: 50%; transform: translateY(-50%); }
-      .lb-next  { right: 8px; top: 50%; transform: translateY(-50%); }
-      @media (max-width:640px){
-        .gallery-item img { height: 140px; }
-      }
-    </style>
-
-    <script>
-      (function(){
-        var items = Array.from(document.querySelectorAll('.gallery-item'));
-        if (!items.length) return;
-
-        var lb = document.getElementById('lb');
-        var lbImage = document.getElementById('lb-image');
-        var lbCaption = document.getElementById('lb-caption');
-        var closeBtn = document.getElementById('lb-close');
-        var prevBtn = document.getElementById('lb-prev');
-        var nextBtn = document.getElementById('lb-next');
-
-        var currentIndex = 0;
-
-        function show(index){
-          var a = items[index];
-          lbImage.src = a.href;
-          lbImage.alt = a.dataset.caption || '';
-          lbCaption.textContent = a.dataset.caption || '';
-          lb.style.display = 'flex';
-          lb.setAttribute('aria-hidden','false');
-          currentIndex = index;
-          document.body.style.overflow = 'hidden';
-        }
-        function hide(){
-          lb.style.display = 'none';
-          lb.setAttribute('aria-hidden','true');
-          lbImage.src = '';
-          document.body.style.overflow = '';
-        }
-        function prev(){
-          show((currentIndex - 1 + items.length) % items.length);
-        }
-        function next(){
-          show((currentIndex + 1) % items.length);
+        function setImage(index){
+          index = (index + images.length) % images.length;
+          current = index;
+          // assign src now: browser will fetch only this image
+          mainImage.src = images[current];
+          // set alt / caption text from filename
+          var name = images[current].split('/').pop().replace(/[-_]/g,' ');
+          mainImage.alt = name;
+          caption.textContent = name;
         }
 
-        items.forEach(function(a, i){
-          a.addEventListener('click', function(e){
-            e.preventDefault();
-            show(i);
+        document.addEventListener('DOMContentLoaded', function(){
+          mainImage = document.getElementById('mainImage');
+          caption = document.getElementById('caption');
+
+          // If you prefer the landing image to be the initial viewer image, find its index:
+          var landingPath = '/assets/DetroitGallery/IMG_4213.jpg';
+          var landingIndex = images.indexOf(landingPath);
+          if (landingIndex >= 0) {
+            // show landing image first
+            setImage(landingIndex);
+          } else {
+            // fallback: show images[0]
+            setImage(0);
+          }
+
+          // Prev/next controls: will set src only when clicked
+          document.getElementById('prevBtn').addEventListener('click', function(){ setImage(current - 1); });
+          document.getElementById('nextBtn').addEventListener('click', function(){ setImage(current + 1); });
+
+          // Optional keyboard navigation
+          document.addEventListener('keydown', function(e){
+            if (e.key === 'ArrowLeft') { setImage(current - 1); }
+            if (e.key === 'ArrowRight') { setImage(current + 1); }
+            if (e.key === 'Home') { setImage(0); }
+            if (e.key === 'End') { setImage(images.length - 1); }
+          });
+
+          // Lazy thumbnails: build small <img> tags only when user clicks load
+          document.getElementById('loadThumbsBtn').addEventListener('click', function(){
+            var tc = document.getElementById('thumbContainer');
+            if (tc.getAttribute('data-loaded') === 'true') return;
+            tc.setAttribute('data-loaded','true');
+            tc.setAttribute('aria-hidden','false');
+
+            // Create thumbnail elements without src attributes initially,
+            // then populate src with data-src as they scroll into view using IntersectionObserver.
+            images.forEach(function(p, i){
+              var a = document.createElement('a');
+              a.href = p;
+              a.className = 'thumb-link';
+              a.dataset.index = i;
+
+              var img = document.createElement('img');
+              img.dataset.src = p; // actual URL saved to data-src only
+              img.alt = p.split('/').pop().replace(/[-_]/g,' ');
+              img.className = 'thumb';
+              img.style.width = '100%';
+              img.style.height = '120px';
+              img.style.objectFit = 'cover';
+              img.loading = 'lazy';
+
+              a.appendChild(img);
+              tc.appendChild(a);
+
+              // click thumbnail to show in main viewer; only then will the full image be fetched
+              a.addEventListener('click', function(ev){
+                ev.preventDefault();
+                setImage(parseInt(this.dataset.index,10));
+                window.scrollTo({ top: document.getElementById('viewer').offsetTop - 40, behavior: 'smooth' });
+              });
+            });
+
+            // IntersectionObserver to swap data-src -> src for thumbnails when visible
+            var observer = new IntersectionObserver(function(entries, obs){
+              entries.forEach(function(entry){
+                if (entry.isIntersecting){
+                  var img = entry.target;
+                  if (img.dataset.src && !img.src){
+                    img.src = img.dataset.src;
+                  }
+                  obs.unobserve(img);
+                }
+              });
+            }, { rootMargin: '200px 0px', threshold: 0.01 });
+
+            var thumbs = document.querySelectorAll('.thumb');
+            thumbs.forEach(function(t){ observer.observe(t); });
           });
         });
-
-        closeBtn.addEventListener('click', hide);
-        prevBtn.addEventListener('click', prev);
-        nextBtn.addEventListener('click', next);
-
-        lb.addEventListener('click', function(e){
-          if (e.target === lb) hide();
-        });
-
-        document.addEventListener('keydown', function(e){
-          if (lb.style.display !== 'flex') return;
-          if (e.key === 'Escape') hide();
-          if (e.key === 'ArrowLeft') prev();
-          if (e.key === 'ArrowRight') next();
-        });
-      })();
+      }
     </script>
+
+    <style>
+      /* minimal styling; move to your project CSS if preferred */
+      .featured-image img { width:100%; height:auto; display:block; border-radius:6px; margin-bottom:0.75rem; }
+      #viewer { display:flex; align-items:center; gap:12px; justify-content:center; margin:1rem 0; }
+      .nav-btn { background:transparent; border:none; font-size:2rem; cursor:pointer; user-select:none; padding:6px 10px; }
+      .thumbnail-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap:8px; margin-top:12px; }
+      .thumbnail-grid .thumb-link img { border-radius:6px; box-shadow:0 6px 14px rgba(0,0,0,0.12); display:block; }
+      #loadThumbsBtn { padding:8px 12px; cursor:pointer; }
+    </style>
 
   </article>
 
