@@ -1,6 +1,14 @@
 <article>
   <a href="{{ site.github.url }}{{ post.url }}">
-    <div class="featured-post" {% if post.image %}style="background-image:url({{ site.github.url }}/assets/img/{{ post.image }})"{% endif %}>
+    {% assign image_path = '' %}
+    {% if post.image %}
+      {% if post.image contains '/' %}
+        {% assign image_path = '/assets/' | append: post.image %}
+      {% else %}
+        {% assign image_path = '/assets/img/' | append: post.image %}
+      {% endif %}
+    {% endif %}
+    <div class="featured-post" {% if image_path != '' %}style="background-image:url({{ site.github.url }}{{ image_path }})"{% endif %}>
       <h2><span>{{ post.title }}</span></h2>
     </div>
   </a>
