@@ -41,6 +41,146 @@
     max-width: 95vw;
   }
 }
+
+.photo-essay-lead {
+  color: #333;
+  font-size: 1.05rem;
+}
+
+.photo-essay-gallery {
+  margin: 1.35rem 0 1.75rem;
+}
+
+.photo-viewer {
+  margin: 0;
+}
+
+.photo-frame {
+  align-items: center;
+  background: #f6f5f1;
+  border: 1px solid #e7e2d8;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  min-height: 320px;
+  overflow: hidden;
+  position: relative;
+}
+
+.photo-frame img {
+  display: block;
+  margin: 0;
+  max-height: 72vh;
+  max-width: 100%;
+  width: auto;
+}
+
+.nav-btn {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(15, 18, 9, 0.18);
+  border-radius: 50%;
+  color: #0f1209;
+  cursor: pointer;
+  display: flex;
+  font-size: 2rem;
+  height: 42px;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  user-select: none;
+  width: 42px;
+}
+
+.nav-btn:hover,
+.nav-btn:focus {
+  background: rgba(255, 255, 255, 0.96);
+  outline: none;
+}
+
+#prevBtn {
+  left: 10px;
+}
+
+#nextBtn {
+  right: 10px;
+}
+
+.photo-caption {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 0.65rem;
+  text-align: center;
+}
+
+.gallery-actions {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.gallery-button {
+  background: #0f1209;
+  border: 1px solid #0f1209;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  padding: 0.7rem 0.9rem;
+}
+
+.gallery-button:disabled {
+  background: #eee;
+  border-color: #d7d7d7;
+  color: #777;
+  cursor: default;
+}
+
+.thumbnail-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  margin-top: 1rem;
+}
+
+.thumb-link {
+  aspect-ratio: 1;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  display: block;
+  overflow: hidden;
+}
+
+.thumb-link[aria-current="true"] {
+  border-color: #0f1209;
+}
+
+.thumb {
+  display: block;
+  height: 100%;
+  margin: 0;
+  max-width: none;
+  object-fit: cover;
+  width: 100%;
+}
+
+@media (max-width: $tablet-width) {
+  .photo-frame {
+    min-height: 240px;
+  }
+
+  .nav-btn {
+    height: 36px;
+    width: 36px;
+  }
+
+  .thumbnail-grid {
+    grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+  }
+}
+
 .post-share {
   padding-bottom: 1rem;
 }

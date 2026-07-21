@@ -1,29 +1,43 @@
-<div class="related">
-  <h2>{{ site.data.settings.related_posts }}</h2>
-  {% assign listed_posts_urls = page.url | split: ' ' %}
-  <ul class="related-posts">
-    {% for tag in page.tags %}
-      {% for mypost in site.tags[tag] limit:2 %}
-        {% if listed_posts_urls contains mypost.url %}
-        {% else %}
-          <li>
-            <h3>
-              <a href="{{ site.github.url }}{{ mypost.url }}">
-                <div class="related-thumbnail">
-                  {% if mypost.image %}
-                    <img src="{{ site.url }}{{ site.baseurl }}/assets/img/{{ mypost.image }}">
+{% assign listed_posts_urls = page.url | split: ' ' %}
+
+{% capture related_items %}
+  {% for tag in page.tags %}
+    {% for mypost in site.tags[tag] limit:2 %}
+      {% unless listed_posts_urls contains mypost.url %}
+        <li>
+          <h3>
+            <a href="{{ site.github.url }}{{ mypost.url }}">
+              <div class="related-thumbnail">
+                {% assign related_image_path = '' %}
+                {% if mypost.image %}
+                  {% if mypost.image contains '/' %}
+                    {% assign related_image_path = '/assets/' | append: mypost.image %}
+                  {% else %}
+                    {% assign related_image_path = '/assets/img/' | append: mypost.image %}
                   {% endif %}
-                </div>
-                <div class="related-title">
-                  {{ mypost.title }}
-                </div>
-                <!--<small>{{ mypost.date | date: "%B %-d, %Y" }}</small>-->
-              </a>
-            </h3>
-          </li>
-          {% assign listed_posts_urls = listed_posts_urls | push: mypost.url %}
-        {% endif %}
-      {% endfor %}
+                {% endif %}
+                {% if related_image_path != '' %}
+                  <img src="{{ related_image_path | relative_url }}" alt="{{ mypost.title | escape }}">
+                {% endif %}
+              </div>
+              <div class="related-title">
+                {{ mypost.title }}
+              </div>
+            </a>
+          </h3>
+        </li>
+        {% assign listed_posts_urls = listed_posts_urls | push: mypost.url %}
+      {% endunless %}
     {% endfor %}
-  </ul>
-</div>
+  {% endfor %}
+{% endcapture %}
+{% assign related_items = related_items | strip %}
+
+{% if related_items != '' %}
+  <div class="related">
+    <h2>{{ site.data.settings.related_posts }}</h2>
+    <ul class="related-posts">
+      {{ related_items }}
+    </ul>
+  </div>
+{% endif %}

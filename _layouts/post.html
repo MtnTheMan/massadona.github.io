@@ -9,9 +9,17 @@ layout: default
   {% if site.hide_post_date != true %}
     {% include post-date.html %}
   {% endif %}
-  {% if page.image %}
+  {% assign image_path = '' %}
+  {% if page.image and page.hide_featured_image != true %}
+    {% if page.image contains '/' %}
+      {% assign image_path = '/assets/' | append: page.image %}
+    {% else %}
+      {% assign image_path = '/assets/img/' | append: page.image %}
+    {% endif %}
+  {% endif %}
+  {% if image_path != '' %}
     <div class="featured-image">
-      <img src="{{ site.github.url }}/assets/img/{{ page.image }}">
+      <img src="{{ image_path | relative_url }}" alt="{{ page.title | escape }}">
     </div>
   {% endif %}
   <article>
